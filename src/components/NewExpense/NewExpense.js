@@ -1,19 +1,35 @@
+import { useState } from "react";
 import ExpenseForm from "./ExpenseForm";
 import "./NewExpense.css";
 
 const NewExpense = (props) => {
-  const submitExpenseDataHandler = (saveExpenseData) => {
-    const expenseData = {
-      ...saveExpenseData,
+  const [isEditing, setIsEditing] = useState(false);
+
+  const submitExpenseDataHandler = (expenseData) => {
+    // copy the expenseData from ExpenseForm to newExpenseData
+    const newExpenseData = {
+      ...expenseData,
       id: Math.random().toString(),
     };
-    props.onSubmitNewData(expenseData);
-    // console.log(expenseData);
+
+    // pass the newExpenseData to parent -> App
+    props.onSaveExpenseData(newExpenseData);
   };
+
+  const setIsEditingHandler = () => {
+    setIsEditing(true);
+  };
+
+  // if (isEditing === true) {
+  //   return <button onClick={setIsEditingHandler}>Add Expense</button>;
+  // }
 
   return (
     <div className='new-expense'>
-      <ExpenseForm onSubmitExpenseData={submitExpenseDataHandler} />
+      {!isEditing && <button onClick={setIsEditingHandler}>Add Expense</button>}
+      {isEditing && (
+        <ExpenseForm onSubmitExpenseData={submitExpenseDataHandler} />
+      )}
     </div>
   );
 };

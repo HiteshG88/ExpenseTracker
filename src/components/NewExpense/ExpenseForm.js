@@ -2,35 +2,39 @@ import "./ExpenseForm.css";
 import { useState } from "react";
 
 function ExpenseForm(props) {
-  const [enteredTitle, setTitle] = useState("");
-  const [enteredAmount, setAmount] = useState("");
-  const [enteredDate, setDate] = useState("");
+  const [newTitle, setNewTitle] = useState("");
+  const [newAmount, setNewAmount] = useState("");
+  const [newDate, setNewDate] = useState("");
 
+  // capture the new title, amount and date, in newTitle, newAmount and newDate using useState.
   const titleHandler = (event) => {
-    setTitle(event.target.value);
-    // console.log(event.target.value);
+    setNewTitle(event.target.value);
   };
   const amountHandler = (event) => {
-    setAmount(event.target.value);
+    setNewAmount(event.target.value);
   };
   const dateHandler = (event) => {
-    setDate(event.target.value);
+    setNewDate(event.target.value);
   };
 
   const submitHandler = (event) => {
+    // prevent from whole page from reloading on form-submit.
     event.preventDefault();
 
+    // store the newTitle, newAmount and newDate into expenseData to pass
     const expenseData = {
-      title: enteredTitle,
-      amount: enteredAmount,
-      date: new Date(enteredDate),
+      title: newTitle,
+      amount: newAmount,
+      date: new Date(newDate),
     };
 
-    // console.log(expenseData);
+    // pass the newExpenseData to parent -> NewExpenseData
     props.onSubmitExpenseData(expenseData);
-    setTitle("");
-    setDate("");
-    setAmount("");
+
+    // set the title, amount and data to empty string again
+    setNewTitle("");
+    setNewDate("");
+    setNewAmount("");
   };
 
   return (
@@ -38,7 +42,7 @@ function ExpenseForm(props) {
       <div className='new-expense__controls'>
         <div className='new-expense__control'>
           <label>Title</label>
-          <input type='text' value={enteredTitle} onChange={titleHandler} />
+          <input type='text' value={newTitle} onChange={titleHandler} />
         </div>
         <div className='new-expense__control'>
           <label>Amount</label>
@@ -46,7 +50,7 @@ function ExpenseForm(props) {
             type='number'
             min='0.01'
             step='0.01'
-            value={enteredAmount}
+            value={newAmount}
             onChange={amountHandler}
           />
         </div>
@@ -56,7 +60,7 @@ function ExpenseForm(props) {
             type='date'
             min='2019-01-01'
             max='2022-12-31'
-            value={enteredDate}
+            value={newDate}
             onChange={dateHandler}
           />
         </div>

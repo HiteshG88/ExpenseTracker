@@ -28,6 +28,7 @@ function App() {
   const [expenses, setExpenses] = useState(dummyExpenses);
 
   const submitNewDataHandler = (newExpenseData) => {
+    // if the new array's values depends on the prev arrays value always use this convention.
     setExpenses((prevExpenses) => {
       return [newExpenseData, ...prevExpenses];
     });

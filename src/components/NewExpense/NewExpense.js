@@ -6,7 +6,7 @@ const NewExpense = (props) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const submitExpenseDataHandler = (expenseData) => {
-    // copy the expenseData from ExpenseForm to newExpenseData
+    // copy the expenseData from ExpenseForm to newExpenseData and set an id
     const newExpenseData = {
       ...expenseData,
       id: Math.random().toString(),

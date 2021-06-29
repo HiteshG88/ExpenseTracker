@@ -14,6 +14,8 @@ const ExpenseList = (props) => {
       {/* map the filtered year expenses array */}
       {props.items.map((expense) => (
         <ExpenseItem
+          // it is important to add a key->with unique {id} to help react understand the uniqueness of an item.
+          // else react will add the item in expense array and will revaluate all the items in expense array. this will be a performance hit.
           key={expense.id}
           title={expense.title}
           amount={expense.amount}

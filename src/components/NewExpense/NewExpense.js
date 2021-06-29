@@ -14,10 +14,17 @@ const NewExpense = (props) => {
 
     // pass the newExpenseData to parent -> App
     props.onSaveExpenseData(newExpenseData);
+
+    // after Add-expense submit close the form.
+    setIsEditing(false);
   };
 
   const setIsEditingHandler = () => {
     setIsEditing(true);
+  };
+
+  const stopEditingHandler = () => {
+    setIsEditing(false);
   };
 
   // if (isEditing === true) {
@@ -28,7 +35,10 @@ const NewExpense = (props) => {
     <div className='new-expense'>
       {!isEditing && <button onClick={setIsEditingHandler}>Add Expense</button>}
       {isEditing && (
-        <ExpenseForm onSubmitExpenseData={submitExpenseDataHandler} />
+        <ExpenseForm
+          onSubmitExpenseData={submitExpenseDataHandler}
+          onCancel={stopEditingHandler}
+        />
       )}
     </div>
   );
